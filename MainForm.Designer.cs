@@ -36,6 +36,7 @@
             txtBoxEnterToDo = new TextBox();
             btnAdd = new Button();
             grpBoxToDo = new GroupBox();
+            listViewToDo = new ListView();
             toolStripMenuSaveDataFile = new ToolStripMenuItem();
             toolStripMenuNew = new ToolStripMenuItem();
             toolStripOpenDatafile = new ToolStripMenuItem();
@@ -44,7 +45,8 @@
             helpToolStripMenuItem = new ToolStripMenuItem();
             toolStripAbout = new ToolStripMenuItem();
             menuStrip1 = new MenuStrip();
-            listViewToDo = new ListView();
+            btnChange = new Button();
+            btnDelete = new Button();
             grpBoxToDo.SuspendLayout();
             menuStrip1.SuspendLayout();
             SuspendLayout();
@@ -60,10 +62,14 @@
             // 
             // dateTimePicker
             // 
+            dateTimePicker.CustomFormat = "yyyy/MM/dd HH:mm";
+            dateTimePicker.Format = DateTimePickerFormat.Custom;
             dateTimePicker.Location = new Point(189, 39);
             dateTimePicker.Name = "dateTimePicker";
+            dateTimePicker.ShowUpDown = true;
             dateTimePicker.Size = new Size(300, 31);
             dateTimePicker.TabIndex = 2;
+            dateTimePicker.ValueChanged += dateTimePicker_ValueChanged;
             // 
             // lblPriority
             // 
@@ -82,11 +88,12 @@
             comboBoxPriority.Name = "comboBoxPriority";
             comboBoxPriority.Size = new Size(182, 33);
             comboBoxPriority.TabIndex = 4;
+            comboBoxPriority.SelectedIndexChanged += comboBoxPriority_SelectedIndexChanged;
             // 
             // lblToDo
             // 
             lblToDo.AutoSize = true;
-            lblToDo.Location = new Point(17, 89);
+            lblToDo.Location = new Point(17, 95);
             lblToDo.Name = "lblToDo";
             lblToDo.Size = new Size(57, 25);
             lblToDo.TabIndex = 5;
@@ -98,6 +105,7 @@
             txtBoxEnterToDo.Name = "txtBoxEnterToDo";
             txtBoxEnterToDo.Size = new Size(668, 31);
             txtBoxEnterToDo.TabIndex = 6;
+            txtBoxEnterToDo.TextChanged += txtBoxEnterToDo_TextChanged;
             // 
             // btnAdd
             // 
@@ -107,6 +115,7 @@
             btnAdd.TabIndex = 7;
             btnAdd.Text = "Add";
             btnAdd.UseVisualStyleBackColor = true;
+            btnAdd.Click += btnAdd_Click;
             // 
             // grpBoxToDo
             // 
@@ -117,6 +126,16 @@
             grpBoxToDo.TabIndex = 8;
             grpBoxToDo.TabStop = false;
             grpBoxToDo.Text = "To Do";
+            // 
+            // listViewToDo
+            // 
+            listViewToDo.Location = new Point(6, 37);
+            listViewToDo.Name = "listViewToDo";
+            listViewToDo.Size = new Size(1350, 315);
+            listViewToDo.TabIndex = 0;
+            listViewToDo.UseCompatibleStateImageBehavior = false;
+            listViewToDo.View = View.Details;
+            listViewToDo.SelectedIndexChanged += listViewToDo_SelectedIndexChanged;
             // 
             // toolStripMenuSaveDataFile
             // 
@@ -131,18 +150,21 @@
             toolStripMenuNew.ShortcutKeys = Keys.Control | Keys.N;
             toolStripMenuNew.Size = new Size(226, 34);
             toolStripMenuNew.Text = "New";
+            toolStripMenuNew.Click += toolStripMenuNew_Click;
             // 
             // toolStripOpenDatafile
             // 
             toolStripOpenDatafile.Name = "toolStripOpenDatafile";
             toolStripOpenDatafile.Size = new Size(226, 34);
             toolStripOpenDatafile.Text = "Open data file";
+            toolStripOpenDatafile.Click += toolStripOpenDatafile_Click;
             // 
             // toolStripSaveDataFile
             // 
             toolStripSaveDataFile.Name = "toolStripSaveDataFile";
             toolStripSaveDataFile.Size = new Size(226, 34);
             toolStripSaveDataFile.Text = "Save data file";
+            toolStripSaveDataFile.Click += toolStripSaveDataFile_Click;
             // 
             // toolStripExit
             // 
@@ -150,6 +172,7 @@
             toolStripExit.ShortcutKeys = Keys.Alt | Keys.F4;
             toolStripExit.Size = new Size(226, 34);
             toolStripExit.Text = "Exit";
+            toolStripExit.Click += toolStripExit_Click;
             // 
             // helpToolStripMenuItem
             // 
@@ -174,19 +197,31 @@
             menuStrip1.TabIndex = 0;
             menuStrip1.Text = "menuStrip1";
             // 
-            // listViewToDo
+            // btnChange
             // 
-            listViewToDo.Location = new Point(6, 37);
-            listViewToDo.Name = "listViewToDo";
-            listViewToDo.Size = new Size(1350, 315);
-            listViewToDo.TabIndex = 0;
-            listViewToDo.UseCompatibleStateImageBehavior = false;
+            btnChange.Location = new Point(92, 576);
+            btnChange.Name = "btnChange";
+            btnChange.Size = new Size(177, 34);
+            btnChange.TabIndex = 9;
+            btnChange.Text = "Change";
+            btnChange.UseVisualStyleBackColor = true;
+            // 
+            // btnDelete
+            // 
+            btnDelete.Location = new Point(317, 576);
+            btnDelete.Name = "btnDelete";
+            btnDelete.Size = new Size(172, 34);
+            btnDelete.TabIndex = 10;
+            btnDelete.Text = "Delete";
+            btnDelete.UseVisualStyleBackColor = true;
             // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1391, 573);
+            ClientSize = new Size(1391, 634);
+            Controls.Add(btnDelete);
+            Controls.Add(btnChange);
             Controls.Add(grpBoxToDo);
             Controls.Add(btnAdd);
             Controls.Add(txtBoxEnterToDo);
@@ -224,5 +259,7 @@
         private ToolStripMenuItem toolStripAbout;
         private MenuStrip menuStrip1;
         private ListView listViewToDo;
+        private Button btnChange;
+        private Button btnDelete;
     }
 }
