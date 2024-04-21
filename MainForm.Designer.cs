@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             blDateAndTime = new Label();
             dateTimePicker = new DateTimePicker();
             lblPriority = new Label();
@@ -47,6 +48,9 @@
             menuStrip1 = new MenuStrip();
             btnChange = new Button();
             btnDelete = new Button();
+            toolTip = new ToolTip(components);
+            timer = new System.Windows.Forms.Timer(components);
+            lblTime = new Label();
             grpBoxToDo.SuspendLayout();
             menuStrip1.SuspendLayout();
             SuspendLayout();
@@ -63,12 +67,13 @@
             // dateTimePicker
             // 
             dateTimePicker.CustomFormat = "yyyy/MM/dd HH:mm";
+            dateTimePicker.Font = new Font("Courier New", 10F, FontStyle.Regular, GraphicsUnit.Point, 0);
             dateTimePicker.Format = DateTimePickerFormat.Custom;
             dateTimePicker.Location = new Point(189, 39);
             dateTimePicker.Name = "dateTimePicker";
-            dateTimePicker.ShowUpDown = true;
-            dateTimePicker.Size = new Size(300, 31);
+            dateTimePicker.Size = new Size(300, 30);
             dateTimePicker.TabIndex = 2;
+            toolTip.SetToolTip(dateTimePicker, "Click to open calendar for date, write in the time here.");
             dateTimePicker.ValueChanged += dateTimePicker_ValueChanged;
             // 
             // lblPriority
@@ -116,6 +121,27 @@
             btnAdd.Text = "Add";
             btnAdd.UseVisualStyleBackColor = true;
             btnAdd.Click += btnAdd_Click;
+            //
+            // btnChange
+            // 
+            btnChange.Enabled = false;
+            btnChange.Location = new Point(92, 576);
+            btnChange.Name = "btnChange";
+            btnChange.Size = new Size(177, 34);
+            btnChange.TabIndex = 9;
+            btnChange.Text = "Change";
+            btnChange.UseVisualStyleBackColor = true;
+            btnChange.Click += btnChange_Click;
+            //// btnDelete
+            // 
+            btnDelete.Enabled = false;
+            btnDelete.Location = new Point(317, 576);
+            btnDelete.Name = "btnDelete";
+            btnDelete.Size = new Size(172, 34);
+            btnDelete.TabIndex = 10;
+            btnDelete.Text = "Delete";
+            btnDelete.UseVisualStyleBackColor = true;
+            btnDelete.Click += btnDelete_Click;
             // 
             // grpBoxToDo
             // 
@@ -126,6 +152,13 @@
             grpBoxToDo.TabIndex = 8;
             grpBoxToDo.TabStop = false;
             grpBoxToDo.Text = "To Do";
+            //
+            // lblTime
+            // 
+            lblTime.Location = new Point(12, 9);
+            lblTime.Name = "lblTime";
+            lblTime.Size = new Size(100, 23);
+            lblTime.TabIndex = 11;
             // 
             // listViewToDo
             // 
@@ -215,11 +248,24 @@
             btnDelete.Text = "Delete";
             btnDelete.UseVisualStyleBackColor = true;
             // 
+            // timer
+            // 
+            timer.Interval = 1000;
+            // 
+            // lblTime
+            // 
+            lblTime.AutoSize = true;
+            lblTime.Location = new Point(1052, 589);
+            lblTime.Name = "lblTime";
+            lblTime.Size = new Size(0, 25);
+            lblTime.TabIndex = 11;
+            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1391, 634);
+            Controls.Add(lblTime);
             Controls.Add(btnDelete);
             Controls.Add(btnChange);
             Controls.Add(grpBoxToDo);
@@ -261,5 +307,8 @@
         private ListView listViewToDo;
         private Button btnChange;
         private Button btnDelete;
+        private ToolTip toolTip;
+        private System.Windows.Forms.Timer timer;
+        private Label lblTime;
     }
 }

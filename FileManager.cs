@@ -1,24 +1,50 @@
-﻿
-
-namespace ToDoReminder
+﻿namespace ToDoReminder
 {
     internal class FileManager
     {
-        public void SaveTasks(List<Task> tasks, string filePath)
+        private List<Task> tasks;
+        private string filePath;
+
+        public List<Task> Tasks
+        {
+
+            get
+            {
+                if (tasks == null)
+                {
+                    tasks = LoadTasksFromFile();
+                }
+                return tasks;
+            }
+            set
+            {
+                tasks = value;
+                SaveTasks(tasks);
+            }
+        }
+
+        private void SaveTasks(List<Task> tasks)
         {
             using (var writer = new StreamWriter(filePath))
             {
                 foreach (var task in tasks)
                 {
                     writer.WriteLine($"{task.DateAndTime},{task.Description},{task.Priority}");
-                    Console.WriteLine($"Saved task: {task.Description}"); // Debug line
                 }
             }
         }
 
-        public List<Task> LoadTasks(string filePath)
+        public string FilePath
         {
-            // Implement loading tasks from a file
+             set
+            {
+                filePath = value;
+                tasks = null; // Reset the tasks so they will be reloaded the next time the Tasks property is accessed
+            }
+        }
+
+        private List<Task> LoadTasksFromFile()
+        {
             var tasks = new List<Task>();
             using (var reader = new StreamReader(filePath))
             {
