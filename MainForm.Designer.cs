@@ -227,22 +227,25 @@
             // 
             // timer
             // 
+            timer.Enabled = true;
             timer.Interval = 1000;
+            timer.Tick += Timer_Tick;
             // 
             // lblTime
             // 
+            lblTime.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             lblTime.AutoSize = true;
-            lblTime.Location = new Point(1052, 589);
+            lblTime.Location = new Point(1200, 576);
             lblTime.Name = "lblTime";
-            lblTime.Size = new Size(0, 25);
+            lblTime.Size = new Size(80, 25);
             lblTime.TabIndex = 11;
+            lblTime.Text = "21:32:27";
             // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1391, 634);
-            Controls.Add(lblTime);
             Controls.Add(btnDelete);
             Controls.Add(btnChange);
             Controls.Add(grpBoxToDo);
@@ -253,6 +256,7 @@
             Controls.Add(lblPriority);
             Controls.Add(dateTimePicker);
             Controls.Add(blDateAndTime);
+            Controls.Add(lblTime);
             Controls.Add(menuStrip1);
             MainMenuStrip = menuStrip1;
             Name = "MainForm";
