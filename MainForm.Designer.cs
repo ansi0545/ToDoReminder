@@ -121,27 +121,6 @@
             btnAdd.Text = "Add";
             btnAdd.UseVisualStyleBackColor = true;
             btnAdd.Click += btnAdd_Click;
-            //
-            // btnChange
-            // 
-            btnChange.Enabled = false;
-            btnChange.Location = new Point(92, 576);
-            btnChange.Name = "btnChange";
-            btnChange.Size = new Size(177, 34);
-            btnChange.TabIndex = 9;
-            btnChange.Text = "Change";
-            btnChange.UseVisualStyleBackColor = true;
-            btnChange.Click += btnChange_Click;
-            //// btnDelete
-            // 
-            btnDelete.Enabled = false;
-            btnDelete.Location = new Point(317, 576);
-            btnDelete.Name = "btnDelete";
-            btnDelete.Size = new Size(172, 34);
-            btnDelete.TabIndex = 10;
-            btnDelete.Text = "Delete";
-            btnDelete.UseVisualStyleBackColor = true;
-            btnDelete.Click += btnDelete_Click;
             // 
             // grpBoxToDo
             // 
@@ -152,16 +131,10 @@
             grpBoxToDo.TabIndex = 8;
             grpBoxToDo.TabStop = false;
             grpBoxToDo.Text = "To Do";
-            //
-            // lblTime
-            // 
-            lblTime.Location = new Point(12, 9);
-            lblTime.Name = "lblTime";
-            lblTime.Size = new Size(100, 23);
-            lblTime.TabIndex = 11;
             // 
             // listViewToDo
             // 
+            listViewToDo.FullRowSelect = true;
             listViewToDo.Location = new Point(6, 37);
             listViewToDo.Name = "listViewToDo";
             listViewToDo.Size = new Size(1350, 315);
@@ -232,21 +205,25 @@
             // 
             // btnChange
             // 
+            btnChange.Enabled = false;
             btnChange.Location = new Point(92, 576);
             btnChange.Name = "btnChange";
             btnChange.Size = new Size(177, 34);
             btnChange.TabIndex = 9;
             btnChange.Text = "Change";
             btnChange.UseVisualStyleBackColor = true;
+            btnChange.Click += btnChange_Click;
             // 
             // btnDelete
             // 
+            btnDelete.Enabled = false;
             btnDelete.Location = new Point(317, 576);
             btnDelete.Name = "btnDelete";
             btnDelete.Size = new Size(172, 34);
             btnDelete.TabIndex = 10;
             btnDelete.Text = "Delete";
             btnDelete.UseVisualStyleBackColor = true;
+            btnDelete.Click += btnDelete_Click;
             // 
             // timer
             // 

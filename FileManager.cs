@@ -25,6 +25,11 @@
 
         private void SaveTasks(List<Task> tasks)
         {
+            if (string.IsNullOrEmpty(filePath))
+            {
+                throw new InvalidOperationException("File path has not been set.");
+            }
+
             using (var writer = new StreamWriter(filePath))
             {
                 foreach (var task in tasks)
@@ -36,7 +41,7 @@
 
         public string FilePath
         {
-             set
+            set
             {
                 filePath = value;
                 tasks = null; // Reset the tasks so they will be reloaded the next time the Tasks property is accessed
@@ -46,6 +51,12 @@
         private List<Task> LoadTasksFromFile()
         {
             var tasks = new List<Task>();
+
+            if (string.IsNullOrEmpty(filePath))
+            {
+                return tasks; // Return an empty list if filePath is null or empty
+            }
+
             using (var reader = new StreamReader(filePath))
             {
                 string line;
@@ -56,6 +67,7 @@
                     tasks.Add(task);
                 }
             }
+
             return tasks;
         }
     }

@@ -10,11 +10,15 @@ namespace ToDoReminder
             InitializeComponent();
             InitializeListView();
             this.Text = "ToDo Reminder by Ann-Sofie";
-            taskManager = new TaskManager();
             fileManager = new FileManager();
+            taskManager = new TaskManager(fileManager); // Pass the FileManager object to the TaskManager
             PopulatePriorityComboBox();
 
             lblTime = new Label();
+            timer.Tick += Timer_Tick; // Add an event handler for the Tick event
+            lblTime.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            this.Controls.Add(lblTime); // Add the label to the form's controls
+            timer.Interval = 1000; // Set the timer to tick every second
             timer.Tick += Timer_Tick; // Add an event handler for the Tick event
             timer.Start(); // Start the timer
         }
@@ -160,6 +164,8 @@ namespace ToDoReminder
             var saveFileDialog = new SaveFileDialog();
             if (saveFileDialog.ShowDialog() == DialogResult.OK)
             {
+
+                fileManager.FilePath = saveFileDialog.FileName;
                 fileManager.Tasks = taskManager.Tasks;
             }
         }
