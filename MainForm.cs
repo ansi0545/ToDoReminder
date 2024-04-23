@@ -131,6 +131,20 @@ namespace ToDoReminder
         {
             // Enable or disable the Change and Delete buttons based on the selection in the ListView
             btnChange.Enabled = btnDelete.Enabled = listViewToDo.SelectedItems.Count > 0;
+
+            if (listViewToDo.SelectedItems.Count > 0)
+            {
+                // Get the selected task
+                var selectedTask = listViewToDo.SelectedItems[0].Tag as Task;
+
+                if (selectedTask != null)
+                {
+                    // Populate the textbox and comboBoxPriority with the selected task's details
+                    txtBoxEnterToDo.Text = selectedTask.Description;
+                    comboBoxPriority.SelectedItem = selectedTask.Priority;
+                    dateTimePicker.Value = selectedTask.DateAndTime;
+                }
+            }
         }
 
         private void toolStripMenuNew_Click(object sender, EventArgs e)
