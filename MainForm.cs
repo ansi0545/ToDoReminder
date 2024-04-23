@@ -185,6 +185,12 @@ namespace ToDoReminder
             }
         }
 
+        private void toolStripAbout_Click(object sender, EventArgs e)
+        {
+            AboutBox aboutBox = new AboutBox();
+            aboutBox.ShowDialog();
+        }
+
         private void RefreshListView()
         {
             listViewToDo.Items.Clear();

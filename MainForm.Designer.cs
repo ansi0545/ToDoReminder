@@ -192,6 +192,7 @@
             toolStripAbout.Name = "toolStripAbout";
             toolStripAbout.Size = new Size(176, 34);
             toolStripAbout.Text = "About...";
+            toolStripAbout.Click += toolStripAbout_Click;
             // 
             // menuStrip1
             // 
