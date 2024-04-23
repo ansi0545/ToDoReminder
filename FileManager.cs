@@ -25,19 +25,27 @@
 
         private void SaveTasks(List<Task> tasks)
         {
-            if (string.IsNullOrEmpty(filePath))
+            try
             {
-                throw new InvalidOperationException("File path has not been set.");
-            }
-
-            using (var writer = new StreamWriter(filePath))
-            {
-                writer.WriteLine(Token);
-                writer.WriteLine(tasks.Count);
-                foreach (var task in tasks)
+                if (string.IsNullOrEmpty(filePath))
                 {
-                    writer.WriteLine($"{task.DateAndTime},{task.Description},{task.Priority}");
+                    throw new InvalidOperationException("File path has not been set.");
                 }
+
+                using (var writer = new StreamWriter(filePath))
+                {
+                    writer.WriteLine(Token);
+                    writer.WriteLine(tasks.Count);
+                    foreach (var task in tasks)
+                    {
+                        writer.WriteLine($"{task.DateAndTime},{task.Description},{task.Priority}");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log the exception, display a message to the user, etc.
+                Console.WriteLine($"An error occurred while saving tasks: {ex.Message}");
             }
         }
 
@@ -54,28 +62,36 @@
         {
             var tasks = new List<Task>();
 
-            if (string.IsNullOrEmpty(filePath))
+            try
             {
-                return tasks; // Return an empty list if filePath is null or empty
+                if (string.IsNullOrEmpty(filePath))
+                {
+                    return tasks; // Return an empty list if filePath is null or empty
+                }
+
+                using (var reader = new StreamReader(filePath))
+                {
+                    string line = reader.ReadLine();
+                    if (line != Token)
+                    {
+                        throw new InvalidOperationException("File was not saved by this application.");
+                    }
+
+                    int taskCount = int.Parse(reader.ReadLine());
+
+                    for (int i = 0; i < taskCount; i++)
+                    {
+                        line = reader.ReadLine();
+                        var parts = line.Split(',');
+                        var task = new Task(parts[1], DateTime.Parse(parts[0]), (PriorityType)Enum.Parse(typeof(PriorityType), parts[2]));
+                        tasks.Add(task);
+                    }
+                }
             }
-
-            using (var reader = new StreamReader(filePath))
+            catch (Exception ex)
             {
-                string line = reader.ReadLine();
-                if (line != Token)
-                {
-                    throw new InvalidOperationException("File was not saved by this application.");
-                }
-
-                int taskCount = int.Parse(reader.ReadLine());
-
-                for (int i = 0; i < taskCount; i++)
-                {
-                    line = reader.ReadLine();
-                    var parts = line.Split(',');
-                    var task = new Task(parts[1], DateTime.Parse(parts[0]), (PriorityType)Enum.Parse(typeof(PriorityType), parts[2]));
-                    tasks.Add(task);
-                }
+                // Log the exception, display a message to the user, etc.
+                Console.WriteLine($"An error occurred while loading tasks: {ex.Message}");
             }
 
             return tasks;
