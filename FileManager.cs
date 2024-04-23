@@ -46,7 +46,7 @@
             set
             {
                 filePath = value;
-                tasks = null; 
+                tasks = null; // Reset the tasks so they will be reloaded the next time the Tasks property is accessed
             }
         }
 
