@@ -2,12 +2,12 @@
 {
     internal class FileManager
     {
+        private const string Token = "ToDoReminderApp";
         private List<Task> tasks;
         private string filePath;
 
         public List<Task> Tasks
         {
-
             get
             {
                 if (tasks == null)
@@ -32,6 +32,8 @@
 
             using (var writer = new StreamWriter(filePath))
             {
+                writer.WriteLine(Token);
+                writer.WriteLine(tasks.Count);
                 foreach (var task in tasks)
                 {
                     writer.WriteLine($"{task.DateAndTime},{task.Description},{task.Priority}");
@@ -44,7 +46,7 @@
             set
             {
                 filePath = value;
-                tasks = null; // Reset the tasks so they will be reloaded the next time the Tasks property is accessed
+                tasks = null; 
             }
         }
 
@@ -59,9 +61,17 @@
 
             using (var reader = new StreamReader(filePath))
             {
-                string line;
-                while ((line = reader.ReadLine()) != null)
+                string line = reader.ReadLine();
+                if (line != Token)
                 {
+                    throw new InvalidOperationException("File was not saved by this application.");
+                }
+
+                int taskCount = int.Parse(reader.ReadLine());
+
+                for (int i = 0; i < taskCount; i++)
+                {
+                    line = reader.ReadLine();
                     var parts = line.Split(',');
                     var task = new Task(parts[1], DateTime.Parse(parts[0]), (PriorityType)Enum.Parse(typeof(PriorityType), parts[2]));
                     tasks.Add(task);
