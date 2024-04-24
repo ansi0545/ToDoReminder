@@ -6,6 +6,9 @@
         private List<Task> tasks;
         private string filePath;
 
+        /// <summary>
+        /// Gets or sets the list of tasks.
+        /// </summary>
         public List<Task> Tasks
         {
             get
@@ -23,6 +26,10 @@
             }
         }
 
+        /// <summary>
+        /// Saves the list of tasks to a file.
+        /// </summary>
+        /// <param name="tasks">The list of tasks to be saved.</param>
         private void SaveTasks(List<Task> tasks)
         {
             try
@@ -48,22 +55,29 @@
             }
         }
 
+        /// <summary>
+        /// Sets the file path for saving and loading tasks.
+        /// </summary>
         public string FilePath
         {
             set
             {
                 filePath = value;
-                tasks = null; // Reset the tasks so they will be reloaded the next time the Tasks property is accessed
+                tasks = null;
             }
         }
 
+        /// <summary>
+        /// Loads tasks from a file and returns a list of tasks.
+        /// </summary>
+        /// <returns>A list of tasks loaded from the file.</returns>
         private List<Task> LoadTasksFromFile()
         {
             var tasks = new List<Task>();
 
             if (string.IsNullOrEmpty(filePath))
             {
-                return tasks; // Return an empty list if filePath is null or empty
+                return tasks;
             }
 
             try
@@ -89,17 +103,14 @@
             }
             catch (IOException ex)
             {
-                // Handle IO exceptions separately, e.g. file not found, no permission, etc.
                 Console.WriteLine($"An I/O error occurred while loading tasks: {ex.Message}");
             }
             catch (FormatException ex)
             {
-                // Handle format exceptions, e.g. parsing errors
                 Console.WriteLine($"A format error occurred while loading tasks: {ex.Message}");
             }
             catch (Exception ex)
             {
-                // General catch block for other exceptions
                 Console.WriteLine($"An error occurred while loading tasks: {ex.Message}");
             }
 

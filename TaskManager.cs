@@ -1,48 +1,75 @@
 ﻿namespace ToDoReminder
 {
+
     internal class TaskManager
     {
         private List<Task> tasks;
         private readonly FileManager fileManager;
 
+        /// <summary>
+        /// Gets the list of tasks.
+        /// </summary>
         public List<Task> Tasks
         {
             get { return tasks; }
             private set { tasks = value; }
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="TaskManager"/> class.
+        /// </summary>
         public TaskManager() : this(new FileManager())
         {
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="TaskManager"/> class with the specified file manager.
+        /// </summary>
+        /// <param name="fileManager">The file manager to use.</param>
         public TaskManager(FileManager fileManager)
         {
             this.fileManager = fileManager;
             tasks = new List<Task>();
         }
 
+        /// <summary>
+        /// Sets a new task to be added to the task list.
+        /// </summary>
         public Task NewTask
         {
             set { AddTask(value); }
         }
 
+        /// <summary>
+        /// Sets a task to be deleted from the task list.
+        /// </summary>
         public Task DeleteTask
         {
             set { RemoveTask(value); }
         }
 
+        /// <summary>
+        /// Replaces the current list of tasks with the specified list of tasks.
+        /// </summary>
+        /// <param name="newTasks">The new list of tasks.</param>
         public void ReplaceTasks(List<Task> newTasks)
         {
             tasks = newTasks;
         }
 
-
+        /// <summary>
+        /// Sets the old and new tasks to update an existing task in the task list.
+        /// </summary>
         public (Task oldTask, Task newTask) UpdateTask
         {
             set { UpdateExistingTask(value.oldTask, value.newTask); }
         }
 
-        public void LoadTasks(string fileName)
+        /// <summary>
+        /// Loads tasks from the specified file.
+        /// </summary>
+        /// <param name="fileName">The name of the file to load tasks from.</param>
+         public void LoadTasks(string fileName)
         {
             try
             {
@@ -63,7 +90,11 @@
             }
         }
 
-        private void AddTask(Task task)
+        /// <summary>
+        /// Adds a task to the task manager.
+        /// </summary>
+        /// <param name="task">The task to be added.</param>
+         private void AddTask(Task task)
         {
             if (task == null)
             {
@@ -105,6 +136,7 @@
             }
         }
 
+        
         private void UpdateExistingTask(Task oldTask, Task newTask)
         {
             try

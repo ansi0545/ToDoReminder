@@ -5,6 +5,9 @@ using System.Windows.Forms;
 
 namespace ToDoReminder
 {
+    /// <summary>
+    /// Retrieves the first <see cref="AssemblyTitleAttribute"/> from the assembly's custom attributes.
+    /// </summary>
     public partial class AboutBox : Form
     {
         public AboutBox()
