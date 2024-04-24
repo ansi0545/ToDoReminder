@@ -4,7 +4,7 @@ namespace ToDoReminder
     {
         private TaskManager taskManager;
         private FileManager fileManager;
-
+        string fileName = Application.StartupPath + "\\Tasks.txt";
         public MainForm()
         {
             InitializeComponent();
@@ -156,23 +156,29 @@ namespace ToDoReminder
 
         private void toolStripOpenDatafile_Click(object sender, EventArgs e)
         {
-            var openFileDialog = new OpenFileDialog();
-            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            try
             {
-                fileManager.FilePath = openFileDialog.FileName;
+                fileManager.FilePath = fileName;
                 taskManager.ReplaceTasks(fileManager.Tasks);
                 RefreshListView();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Failed to open file: {ex.Message}");
             }
         }
 
         private void toolStripSaveDataFile_Click(object sender, EventArgs e)
         {
-            var saveFileDialog = new SaveFileDialog();
-            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+            try
             {
-
-                fileManager.FilePath = saveFileDialog.FileName;
+                fileManager.FilePath = fileName;
                 fileManager.Tasks = taskManager.Tasks;
+                MessageBox.Show("Tasks saved successfully.");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Failed to save file: {ex.Message}");
             }
         }
 

@@ -1,4 +1,5 @@
-﻿namespace ToDoReminder
+﻿// AboutBox.Designer.cs
+namespace ToDoReminder
 {
     partial class AboutBox
     {
@@ -35,22 +36,21 @@
             // 
             // pictureBoxHelp
             // 
-            pictureBoxHelp.Location = new Point(73, 65);
+            pictureBoxHelp.Location = new Point(21, 12);
             pictureBoxHelp.Name = "pictureBoxHelp";
-            pictureBoxHelp.Size = new Size(150, 75);
+            pictureBoxHelp.Size = new Size(520, 312);
+            pictureBoxHelp.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBoxHelp.TabIndex = 0;
             pictureBoxHelp.TabStop = false;
-            pictureBoxHelp.Click += pictureBoxHelp_Click;
             // 
             // lblPicture
             // 
             lblPicture.AutoSize = true;
-            lblPicture.Location = new Point(87, 172);
+            lblPicture.Location = new Point(67, 327);
             lblPicture.Name = "lblPicture";
-            lblPicture.Size = new Size(77, 25);
+            lblPicture.Size = new Size(167, 25);
             lblPicture.TabIndex = 1;
-            lblPicture.Text = "Min bild";
-            lblPicture.Click += lblPicture_Click;
+            lblPicture.Text = "System information";
             // 
             // AboutBox
             // 
