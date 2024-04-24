@@ -44,12 +44,23 @@
 
         public void LoadTasks(string fileName)
         {
-            if (!File.Exists(fileName))
+            try
             {
-                throw new FileNotFoundException("File not found.", fileName);
+                if (!File.Exists(fileName))
+                {
+                    throw new FileNotFoundException("File not found.", fileName);
+                }
+                fileManager.FilePath = fileName;
+                Tasks = fileManager.Tasks;
             }
-            fileManager.FilePath = fileName;
-            Tasks = fileManager.Tasks;
+            catch (FileNotFoundException ex)
+            {
+                Console.WriteLine($"File not found: {ex.FileName}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"An error occurred while loading tasks: {ex.Message}");
+            }
         }
 
         private void AddTask(Task task)
@@ -63,15 +74,30 @@
 
         private void RemoveTask(Task task)
         {
-            if (task == null)
+            try
             {
-                throw new ArgumentNullException(nameof(task), "Task cannot be null.");
+                if (task == null)
+                {
+                    throw new ArgumentNullException(nameof(task), "Task cannot be null.");
+                }
+                if (!tasks.Contains(task))
+                {
+                    throw new ArgumentException("Task not found in the list.");
+                }
+                tasks.Remove(task);
             }
-            if (!tasks.Contains(task))
+            catch (ArgumentNullException ex)
             {
-                throw new ArgumentException("Task not found in the list.");
+                Console.WriteLine($"Task cannot be null: {ex.ParamName}");
             }
-            tasks.Remove(task);
+            catch (ArgumentException ex)
+            {
+                Console.WriteLine($"Task not found in the list: {ex.Message}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"An error occurred while removing task: {ex.Message}");
+            }
         }
 
         private void UpdateExistingTask(Task oldTask, Task newTask)

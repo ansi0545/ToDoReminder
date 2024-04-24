@@ -10,7 +10,7 @@ namespace ToDoReminder
             InitializeComponent();
             this.Text = "ToDo Reminder by Ann-Sofie";
             fileManager = new FileManager();
-            taskManager = new TaskManager(fileManager); // Pass the FileManager object to the TaskManager
+            taskManager = new TaskManager(fileManager);
             PopulatePriorityComboBox();
         }
 
