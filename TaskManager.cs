@@ -72,18 +72,23 @@
             tasks.Add(task);
         }
 
+        private void ValidateTask(Task task)
+        {
+            if (task == null)
+            {
+                throw new ArgumentNullException(nameof(task), "Task cannot be null.");
+            }
+            if (!tasks.Contains(task))
+            {
+                throw new ArgumentException("Task not found in the list.");
+            }
+        }
+
         private void RemoveTask(Task task)
         {
             try
             {
-                if (task == null)
-                {
-                    throw new ArgumentNullException(nameof(task), "Task cannot be null.");
-                }
-                if (!tasks.Contains(task))
-                {
-                    throw new ArgumentException("Task not found in the list.");
-                }
+                ValidateTask(task);
                 tasks.Remove(task);
             }
             catch (ArgumentNullException ex)
@@ -104,10 +109,7 @@
         {
             try
             {
-                if (oldTask == null)
-                {
-                    throw new ArgumentNullException(nameof(oldTask), "Old task cannot be null.");
-                }
+                ValidateTask(oldTask);
                 if (newTask == null)
                 {
                     throw new ArgumentNullException(nameof(newTask), "New task cannot be null.");
@@ -116,10 +118,6 @@
                 if (index != -1)
                 {
                     tasks[index] = newTask;
-                }
-                else
-                {
-                    throw new ArgumentException("Task not found in the list.");
                 }
             }
             catch (ArgumentNullException ex)

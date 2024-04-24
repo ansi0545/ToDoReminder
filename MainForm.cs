@@ -30,33 +30,38 @@ namespace ToDoReminder
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            if (!ValidateInputs())
-            {
-                return;
-            }
-
-            var task = CreateTaskFromInputs();
-            taskManager.NewTask = task;
-
-            ClearInputs();
-            RefreshListView();
+            HandleTask();
         }
 
         private void btnChange_Click(object sender, EventArgs e)
         {
             if (listViewToDo.SelectedItems.Count > 0)
             {
-                if (!ValidateInputs())
-                {
-                    return;
-                }
-
-                var selectedTask = listViewToDo.SelectedItems[0].Tag as Task;
-                var newTask = CreateTaskFromInputs();
-
-                taskManager.UpdateTask = (selectedTask, newTask);
-                RefreshListView();
+                HandleTask();
             }
+        }
+
+        private void HandleTask()
+        {
+            if (!ValidateInputs())
+            {
+                return;
+            }
+
+            var task = CreateTaskFromInputs();
+
+            if (listViewToDo.SelectedItems.Count > 0)
+            {
+                var selectedTask = listViewToDo.SelectedItems[0].Tag as Task;
+                taskManager.UpdateTask = (selectedTask, task);
+            }
+            else
+            {
+                taskManager.NewTask = task;
+            }
+
+            ClearInputs();
+            RefreshListView();
         }
 
         private bool ValidateInputs()
@@ -129,8 +134,8 @@ namespace ToDoReminder
 
         private void toolStripMenuNew_Click(object sender, EventArgs e)
         {
-            // Reset the program
             taskManager = new TaskManager();
+            ClearInputs();
             RefreshListView();
         }
 
@@ -150,6 +155,10 @@ namespace ToDoReminder
 
         private void toolStripSaveDataFile_Click(object sender, EventArgs e)
         {
+            if (!ValidateInputs())
+            {
+                return;
+            }
             try
             {
                 fileManager.FilePath = fileName;
