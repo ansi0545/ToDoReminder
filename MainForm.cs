@@ -47,27 +47,15 @@ namespace ToDoReminder
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(txtBoxEnterToDo.Text))
+            if (!ValidateInputs())
             {
-                MessageBox.Show("Please enter a task description.");
                 return;
             }
 
-            if (comboBoxPriority.SelectedItem == null)
-            {
-                MessageBox.Show("Please select a priority.");
-                return;
-            }
-
-            var task = new Task(txtBoxEnterToDo.Text, dateTimePicker.Value, (PriorityType)comboBoxPriority.SelectedItem);
+            var task = CreateTaskFromInputs();
             taskManager.NewTask = task;
 
-            // Clear the input fields after adding the task
-            txtBoxEnterToDo.Clear();
-            comboBoxPriority.SelectedIndex = -1;
-            dateTimePicker.Value = DateTime.Now;
-
-            // Refresh the list view to show the new task
+            ClearInputs();
             RefreshListView();
         }
 
@@ -75,36 +63,45 @@ namespace ToDoReminder
         {
             if (listViewToDo.SelectedItems.Count > 0)
             {
-                // Get the selected task
+                if (!ValidateInputs())
+                {
+                    return;
+                }
+
                 var selectedTask = listViewToDo.SelectedItems[0].Tag as Task;
+                var newTask = CreateTaskFromInputs();
 
-                if (selectedTask == null)
-                {
-                    MessageBox.Show("The selected task is not valid.");
-                    return;
-                }
-
-                if (comboBoxPriority.SelectedItem == null)
-                {
-                    MessageBox.Show("Please select a priority.");
-                    return;
-                }
-
-                if (string.IsNullOrWhiteSpace(txtBoxEnterToDo.Text))
-                {
-                    MessageBox.Show("Please enter a task description.");
-                    return;
-                }
-
-                // Get the new task details from the input fields
-                var newTask = new Task(txtBoxEnterToDo.Text, dateTimePicker.Value, (PriorityType)comboBoxPriority.SelectedItem);
-
-                // Update the task
                 taskManager.UpdateTask = (selectedTask, newTask);
-
-                // Refresh the list view to show the updated task
                 RefreshListView();
             }
+        }
+
+        private bool ValidateInputs()
+        {
+            if (string.IsNullOrWhiteSpace(txtBoxEnterToDo.Text))
+            {
+                MessageBox.Show("Please enter a task description.");
+                return false;
+            }
+
+            if (comboBoxPriority.SelectedItem == null)
+            {
+                MessageBox.Show("Please select a priority.");
+                return false;
+            }
+
+            return true;
+        }
+        private Task CreateTaskFromInputs()
+        {
+            return new Task(txtBoxEnterToDo.Text, dateTimePicker.Value, (PriorityType)comboBoxPriority.SelectedItem);
+        }
+
+        private void ClearInputs()
+        {
+            txtBoxEnterToDo.Clear();
+            comboBoxPriority.SelectedIndex = -1;
+            dateTimePicker.Value = DateTime.Now;
         }
 
         private void btnDelete_Click(object sender, EventArgs e)
