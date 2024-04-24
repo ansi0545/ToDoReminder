@@ -16,7 +16,7 @@ namespace ToDoReminder
 
             try
             {
-                pictureBoxHelp.Image = Image.FromFile("C:\\source\\repos\\c#\\ToDoReminder\\IMG_0527.jpg");
+                pictureBoxHelp.Image = Image.FromFile(Path.Combine(Application.StartupPath, "IMG_0527.jpg"));
             }
             catch (Exception ex)
             {
