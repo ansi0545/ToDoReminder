@@ -102,22 +102,37 @@
 
         private void UpdateExistingTask(Task oldTask, Task newTask)
         {
-            if (oldTask == null)
+            try
             {
-                throw new ArgumentNullException(nameof(oldTask), "Old task cannot be null.");
+                if (oldTask == null)
+                {
+                    throw new ArgumentNullException(nameof(oldTask), "Old task cannot be null.");
+                }
+                if (newTask == null)
+                {
+                    throw new ArgumentNullException(nameof(newTask), "New task cannot be null.");
+                }
+                int index = tasks.IndexOf(oldTask);
+                if (index != -1)
+                {
+                    tasks[index] = newTask;
+                }
+                else
+                {
+                    throw new ArgumentException("Task not found in the list.");
+                }
             }
-            if (newTask == null)
+            catch (ArgumentNullException ex)
             {
-                throw new ArgumentNullException(nameof(newTask), "New task cannot be null.");
+                Console.WriteLine($"{ex.ParamName} cannot be null: {ex.Message}");
             }
-            int index = tasks.IndexOf(oldTask);
-            if (index != -1)
+            catch (ArgumentException ex)
             {
-                tasks[index] = newTask;
+                Console.WriteLine($"Task not found in the list: {ex.Message}");
             }
-            else
+            catch (Exception ex)
             {
-                throw new ArgumentException("Task not found in the list.");
+                Console.WriteLine($"An error occurred while updating task: {ex.Message}");
             }
         }
     }
