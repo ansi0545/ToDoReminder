@@ -73,8 +73,7 @@
             dateTimePicker.Name = "dateTimePicker";
             dateTimePicker.Size = new Size(300, 30);
             dateTimePicker.TabIndex = 2;
-            toolTip.SetToolTip(dateTimePicker, "Click to open calendar for date, write in the time here.");
-            dateTimePicker.ValueChanged += dateTimePicker_ValueChanged;
+            toolTip.SetToolTip(dateTimePicker, "Click to open calendar for date, enter the time here.");
             // 
             // lblPriority
             // 
@@ -93,7 +92,6 @@
             comboBoxPriority.Name = "comboBoxPriority";
             comboBoxPriority.Size = new Size(182, 33);
             comboBoxPriority.TabIndex = 4;
-            comboBoxPriority.SelectedIndexChanged += comboBoxPriority_SelectedIndexChanged;
             // 
             // lblToDo
             // 
@@ -110,7 +108,6 @@
             txtBoxEnterToDo.Name = "txtBoxEnterToDo";
             txtBoxEnterToDo.Size = new Size(668, 31);
             txtBoxEnterToDo.TabIndex = 6;
-            txtBoxEnterToDo.TextChanged += txtBoxEnterToDo_TextChanged;
             // 
             // btnAdd
             // 

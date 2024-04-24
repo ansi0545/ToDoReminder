@@ -44,7 +44,6 @@
             }
             catch (Exception ex)
             {
-                // Log the exception, display a message to the user, etc.
                 Console.WriteLine($"An error occurred while saving tasks: {ex.Message}");
             }
         }

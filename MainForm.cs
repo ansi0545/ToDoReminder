@@ -96,17 +96,11 @@ namespace ToDoReminder
         {
             if (listViewToDo.SelectedItems.Count > 0)
             {
-                // Get the selected task
                 var selectedTask = (Task)listViewToDo.SelectedItems[0].Tag;
-
-                // Confirm deletion
                 var result = MessageBox.Show("Are you sure you want to delete this task?", "Delete Task", MessageBoxButtons.YesNo);
                 if (result == DialogResult.Yes)
                 {
-                    // Delete the task
                     taskManager.DeleteTask = selectedTask;
-
-                    // Refresh the list view to remove the task
                     RefreshListView();
                 }
             }
@@ -114,17 +108,13 @@ namespace ToDoReminder
 
         private void listViewToDo_SelectedIndexChanged(object sender, EventArgs e)
         {
-            // Enable or disable the Change and Delete buttons based on the selection in the ListView
             btnChange.Enabled = btnDelete.Enabled = listViewToDo.SelectedItems.Count > 0;
 
             if (listViewToDo.SelectedItems.Count > 0)
             {
-                // Get the selected task
                 var selectedTask = listViewToDo.SelectedItems[0].Tag as Task;
-
                 if (selectedTask != null)
                 {
-                    // Populate the textbox and comboBoxPriority with the selected task's details
                     txtBoxEnterToDo.Text = selectedTask.Description;
                     comboBoxPriority.SelectedItem = selectedTask.Priority;
                     dateTimePicker.Value = selectedTask.DateAndTime;
@@ -189,7 +179,6 @@ namespace ToDoReminder
         private void RefreshListView()
         {
             listViewToDo.Items.Clear();
-
             foreach (var task in taskManager.Tasks)
             {
                 var item = new ListViewItem(new[] { task.DateAndTime.ToString(), task.Description, task.Priority.ToString() });
@@ -197,29 +186,11 @@ namespace ToDoReminder
                 listViewToDo.Items.Add(item);
             }
 
-            // Resize the columns to fit the content
             for (int i = 0; i < listViewToDo.Columns.Count; i++)
             {
                 listViewToDo.AutoResizeColumn(i, ColumnHeaderAutoResizeStyle.ColumnContent);
             }
-
-            // Enable or disable the Change and Delete buttons based on the selection in the ListView
             btnChange.Enabled = btnDelete.Enabled = listViewToDo.SelectedItems.Count > 0;
-        }
-
-        private void dateTimePicker_ValueChanged(object sender, EventArgs e)
-        {
-            // You can add validation for the date and time here
-        }
-
-        private void comboBoxPriority_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            // You can add validation for the priority here
-        }
-
-        private void txtBoxEnterToDo_TextChanged(object sender, EventArgs e)
-        {
-            // You can add validation for the task description here
         }
     }
 }

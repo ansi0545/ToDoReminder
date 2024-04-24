@@ -20,16 +20,10 @@ namespace ToDoReminder
                 MessageBox.Show($"Failed to load image: {ex.Message}");
             }
 
-            // Get the assembly that contains the code that is currently executing
             var assembly = Assembly.GetExecutingAssembly();
-
-            // Get the assembly title
             var titleAttribute = assembly.GetCustomAttributes(typeof(AssemblyTitleAttribute), false).FirstOrDefault() as AssemblyTitleAttribute;
             var title = titleAttribute != null ? titleAttribute.Title : "Unknown";
-
-            // Get the assembly version
             var version = assembly.GetName().Version.ToString();
-
             lblPicture.Text = $"Title: {title}, Version: {version}";
         }
     }
