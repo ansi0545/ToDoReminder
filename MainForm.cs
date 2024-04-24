@@ -8,7 +8,6 @@ namespace ToDoReminder
         public MainForm()
         {
             InitializeComponent();
-            InitializeListView();
             this.Text = "ToDo Reminder by Ann-Sofie";
             fileManager = new FileManager();
             taskManager = new TaskManager(fileManager); // Pass the FileManager object to the TaskManager
@@ -17,25 +16,9 @@ namespace ToDoReminder
 
         private void Timer_Tick(object sender, EventArgs e)
         {
-            // Update the label with the current time
             lblTime.Text = DateTime.Now.ToString("HH:mm:ss");
         }
 
-        private void InitializeListView()
-        {
-            listViewToDo.Location = new Point(6, 37);
-            listViewToDo.Name = "listViewToDo";
-            listViewToDo.Size = new Size(1350, 315);
-            listViewToDo.TabIndex = 0;
-            listViewToDo.UseCompatibleStateImageBehavior = false;
-            listViewToDo.View = View.Details;
-            listViewToDo.SelectedIndexChanged += listViewToDo_SelectedIndexChanged;
-
-            // Add these lines to create columns in the ListView control
-            listViewToDo.Columns.Add("Date and Time", -2, HorizontalAlignment.Left);
-            listViewToDo.Columns.Add("Description", -2, HorizontalAlignment.Left);
-            listViewToDo.Columns.Add("Priority", -2, HorizontalAlignment.Left);
-        }
 
         private void PopulatePriorityComboBox()
         {

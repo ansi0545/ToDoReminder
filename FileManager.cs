@@ -62,13 +62,13 @@
         {
             var tasks = new List<Task>();
 
+            if (string.IsNullOrEmpty(filePath))
+            {
+                return tasks; // Return an empty list if filePath is null or empty
+            }
+
             try
             {
-                if (string.IsNullOrEmpty(filePath))
-                {
-                    return tasks; // Return an empty list if filePath is null or empty
-                }
-
                 using (var reader = new StreamReader(filePath))
                 {
                     string line = reader.ReadLine();
@@ -88,9 +88,19 @@
                     }
                 }
             }
+            catch (IOException ex)
+            {
+                // Handle IO exceptions separately, e.g. file not found, no permission, etc.
+                Console.WriteLine($"An I/O error occurred while loading tasks: {ex.Message}");
+            }
+            catch (FormatException ex)
+            {
+                // Handle format exceptions, e.g. parsing errors
+                Console.WriteLine($"A format error occurred while loading tasks: {ex.Message}");
+            }
             catch (Exception ex)
             {
-                // Log the exception, display a message to the user, etc.
+                // General catch block for other exceptions
                 Console.WriteLine($"An error occurred while loading tasks: {ex.Message}");
             }
 

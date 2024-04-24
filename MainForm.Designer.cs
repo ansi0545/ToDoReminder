@@ -142,6 +142,9 @@
             listViewToDo.UseCompatibleStateImageBehavior = false;
             listViewToDo.View = View.Details;
             listViewToDo.SelectedIndexChanged += listViewToDo_SelectedIndexChanged;
+            listViewToDo.Columns.Add("Date and Time", -2, HorizontalAlignment.Left);
+            listViewToDo.Columns.Add("Description", -2, HorizontalAlignment.Left);
+            listViewToDo.Columns.Add("Priority", -2, HorizontalAlignment.Left);
             // 
             // toolStripMenuSaveDataFile
             // 
